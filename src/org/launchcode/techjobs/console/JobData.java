@@ -61,10 +61,36 @@ public class JobData {
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
      * @param value Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value){
+        // loading data from CSV - data is stored as an Array of HashMaps from the allJobs variable
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> jobData : allJobs){
+
+            // row.keySet() - when you call this method, it will give you a list of all the keys inside an object(HashMap)
+
+            for(String key : jobData.keySet()){
+
+                String aValue = jobData.get(key);
+
+                if(aValue.toLowerCase().contains(value.toLowerCase())){
+
+                    jobs.add(jobData);
+
+                }
+
+            }
+
+        }
+        return jobs;
+    }
+
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
         // load data, if not already loaded
